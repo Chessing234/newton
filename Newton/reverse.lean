@@ -181,7 +181,7 @@ lemma reverse_eq_zero_iff {R : Type*} [Semiring R] {p : R[X]} : p.reverse = 0 �
 lemma reverse_ne_zero_iff {R : Type*} [Semiring R] {p : R[X]} : p.reverse ≠ 0 ↔ p ≠ 0 :=
   reverse_eq_zero_iff.not
 
-/-- Splitting after reverse, for the converse direction of `split_of_reverse`. -/
-lemma split_of_reverse' {k : Type*} [Field k] {P : k[X]}
-    (hP : P.reverse.Splits (RingHom.id k)) : P.reverse.reverse.Splits (RingHom.id k) :=
-  split_of_reverse hP
+/-- Reversion of a linear factor `X - t`. -/
+lemma reverse_X_sub_C {R : Type*} [Ring R] (t : R) :
+    (X - C t).reverse = 1 - C t * X := by
+  simp [reverse_sub_C, reverse_X]
