@@ -194,3 +194,8 @@ lemma newton_ineq_last {n : ℕ} (hn : 2 ≤ n) {x : Multiset ℝ} (hx : Multise
   have h2 : n - 2 + 2 = n := by omega
   simpa [h2] using newton_ineq (i := n - 2) hi hx
 
+/-- The division-free form at `i = 0`. -/
+lemma newton_ineq'_zero {n : ℕ} {x : Multiset ℝ} (hx : Multiset.card x = n) :
+    2 * n * (esymm x 0) * (esymm x 2) ≤ 1 * (n - 1) * (esymm x 1) ^ 2 := by
+  simpa using newton_ineq' 0 n hx
+
