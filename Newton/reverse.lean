@@ -172,3 +172,16 @@ lemma split_of_reverse {k:Type*} [Field k] {P: k[X]} (hP: P.Splits (RingHom.id k
   rw [splits_iff_card_roots] at hP ⊢
   rw [<-P.card_roots_of_reverse, natDegree_eq_reverse_natDegree_add_natTrailingDegree] at hP
   exact Nat.add_right_cancel hP
+
+/-- Reversion vanishes if and only if the original polynomial does. -/
+lemma reverse_eq_zero_iff {R : Type*} [Semiring R] {p : R[X]} : p.reverse = 0 ↔ p = 0 :=
+  reverse_eq_zero
+
+/-- Reversion does not vanish if and only if the original polynomial does not. -/
+lemma reverse_ne_zero_iff {R : Type*} [Semiring R] {p : R[X]} : p.reverse ≠ 0 ↔ p ≠ 0 :=
+  reverse_eq_zero_iff.not
+
+/-- Splitting after reverse, for the converse direction of `split_of_reverse`. -/
+lemma split_of_reverse' {k : Type*} [Field k] {P : k[X]}
+    (hP : P.reverse.Splits (RingHom.id k)) : P.reverse.reverse.Splits (RingHom.id k) :=
+  split_of_reverse hP
