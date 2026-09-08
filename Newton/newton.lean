@@ -1,5 +1,6 @@
 import Newton.Reverse
 import Mathlib.Analysis.Calculus.LocalExtr.Polynomial
+import Mathlib.Tactic.Omega
 
 open Polynomial
 
@@ -179,3 +180,17 @@ lemma newton_ineq {i n: ℕ} (hi: i+2 ≤ n) {x : Multiset ℝ} (hx: Multiset.ca
   convert newton_ineq' i n hx
   . zify [hi'']
   zify [hi']; ring
+
+/-- Newton's inequalities on the first three elementary symmetric means. -/
+lemma newton_ineq_012 {n : ℕ} (hn : 2 ≤ n) {x : Multiset ℝ} (hx : Multiset.card x = n) :
+    (esymm x 0 / Nat.choose n 0) * (esymm x 2 / Nat.choose n 2) ≤ (esymm x 1 / Nat.choose n 1) ^ 2 :=
+  newton_ineq (i := 0) (by linarith) hx
+
+/-- Newton's inequalities on the last three elementary symmetric means. -/
+lemma newton_ineq_last {n : ℕ} (hn : 2 ≤ n) {x : Multiset ℝ} (hx : Multiset.card x = n) :
+    (esymm x (n - 2) / Nat.choose n (n - 2)) * (esymm x n / Nat.choose n n) ≤
+      (esymm x (n - 1) / Nat.choose n (n - 1)) ^ 2 := by
+  have hi : n - 2 + 2 ≤ n := by omega
+  have h2 : n - 2 + 2 = n := by omega
+  simpa [h2] using newton_ineq (i := n - 2) hi hx
+
