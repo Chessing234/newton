@@ -191,3 +191,8 @@ lemma reverse_natDegree_le {R : Type*} [Semiring R] (p : R[X]) :
     p.reverse.natDegree ≤ p.natDegree := by
   rw [p.reverse_natDegree]
   exact Nat.sub_le _ _
+
+/-- If there is no factor of `X`, reversion preserves degree. -/
+lemma reverse_natDegree_eq_of_natTrailingDegree_eq_zero {R : Type*} [Semiring R]
+    {p : R[X]} (hp : p.natTrailingDegree = 0) : p.reverse.natDegree = p.natDegree := by
+  rw [p.reverse_natDegree, hp, Nat.sub_zero]
