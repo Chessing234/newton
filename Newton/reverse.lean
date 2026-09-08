@@ -185,3 +185,14 @@ lemma reverse_ne_zero_iff {R : Type*} [Semiring R] {p : R[X]} : p.reverse ≠ 0 
 lemma reverse_X_sub_C {R : Type*} [Ring R] (t : R) :
     (X - C t).reverse = 1 - C t * X := by
   simp [reverse_sub_C, reverse_X]
+
+/-- Degree of the reverse is at most the original degree. -/
+lemma reverse_natDegree_le {R : Type*} [Semiring R] (p : R[X]) :
+    p.reverse.natDegree ≤ p.natDegree := by
+  rw [p.reverse_natDegree]
+  exact Nat.sub_le _ _
+
+/-- Degree of the reverse is at most the original degree. -/
+lemma reverse_natDegree_le {R : Type*} [Semiring R] (p : R[X]) :
+    p.reverse.natDegree ≤ p.natDegree := by
+  simpa using p.reverse_natDegree.le
