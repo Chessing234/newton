@@ -199,3 +199,13 @@ lemma newton_ineq'_zero {n : ℕ} {x : Multiset ℝ} (hx : Multiset.card x = n) 
     2 * n * (esymm x 0) * (esymm x 2) ≤ 1 * (n - 1) * (esymm x 1) ^ 2 := by
   simpa using newton_ineq' 0 n hx
 
+/-- The division-free form at the last admissible index `i = n - 2`. -/
+lemma newton_ineq'_last {n : ℕ} (hn : 2 ≤ n) {x : Multiset ℝ} (hx : Multiset.card x = n) :
+    n * 2 * esymm x (n - 2) * esymm x n ≤ (n - 1) * esymm x (n - 1) ^ 2 := by
+  have h := newton_ineq' (n - 2) n hx
+  have h2 : n - 2 + 2 = n := by omega
+  have h1 : n - 2 + 1 = n - 1 := by omega
+  have hn2 : n - (n - 2) = 2 := by omega
+  have hn1 : n - (n - 2) - 1 = 1 := by omega
+  simpa [h2, h1, hn2, hn1, mul_comm, mul_left_comm, mul_assoc] using h
+
