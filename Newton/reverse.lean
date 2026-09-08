@@ -191,8 +191,3 @@ lemma reverse_natDegree_le {R : Type*} [Semiring R] (p : R[X]) :
     p.reverse.natDegree ≤ p.natDegree := by
   rw [p.reverse_natDegree]
   exact Nat.sub_le _ _
-
-/-- Degree of the reverse is at most the original degree. -/
-lemma reverse_natDegree_le {R : Type*} [Semiring R] (p : R[X]) :
-    p.reverse.natDegree ≤ p.natDegree := by
-  simpa using p.reverse_natDegree.le
